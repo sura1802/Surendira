@@ -1,0 +1,75 @@
+import sqlite3
+
+conn = sqlite3.connect('movies.db')
+
+print ("Opened database successfully");
+#Create a Table
+conn.execute('''CREATE TABLE MOVIE
+         ( MOVIE NAME           TEXT    NOT NULL,
+          ACTOR NAME            TEXT    NOT NULL,
+          ACTRESS NAME          TEXT    NOT NULL
+         YEAR OF RELASE INT PRIMARY KEY     NOT NULL,
+         DIRECTOR NAME TEXT);''')
+print ("Table created successfully");
+
+conn.close()
+#INSERT Operation
+conn.execute("INSERT INTO MOVIE (MOVIE, ACTOR, ACTRESS,YEAR,DIRECTOR) \
+      VALUES ('soorarai Pottru', 'surya', 'aparna',2020, 'sudha kongara' )");
+
+conn.execute("INSERT INTO MOVIE (MOVIE, ACTOR, ACTRESS,YEAR,DIRECTOR) \
+      VALUES ('shershaah', 'sidharth', 'kiara', 2021, 'vishnuvardhan' )");
+
+conn.execute("INSERT INTO MOVIE (MOVIE, ACTOR, ACTRESS,YEAR,DIRECTOR) \
+      VALUES ('vada chennai', 'dhanush', 'aiswariya', 2018, 'vetrimaaran' )");
+
+conn.execute("INSERT INTO MOVIE (MOVIE, ACTOR, ACTRESS,YEAR,DIRECTOR) \
+      VALUES ('black friday', 'kay menon', 'priya', 2004, 'Rich-Mond ' )");
+
+conn.commit()
+print ("Records created successfully");
+conn.close()
+
+#SELECT Operation
+cursor = conn.execute("SELECT MOVIE, ACTOR, ACTRESS, YEAR, DIRECTOR from MOVIE")
+for row in cursor:
+   print ("MOVIE = ", row[0])
+   print ("ACTOR = ", row[1])
+   print ("ACTRESS = ", row[2])
+   print ("YEAR = ", row[3])
+   print ("DIRECTOR = ", row[4],"\n")
+
+print ("Operation done successfully");
+conn.close()
+
+#UPDATE Operation
+conn.execute("UPDATE MOVIE set DIRECTOR = 'Anurag' where MOVIE = 'soorarai Pottru'")
+conn.commit()
+print( "Total number of rows updated :", conn.total_changes)
+
+cursor = conn.execute("SELECT MOVIE, ACTOR, ACTRESS, YEAR, DIRECTOR from MOVIE")
+for row in cursor:
+   print ("MOVIE = ", row[0])
+   print ("ACTOR = ", row[1])
+   print ("ACTRESS = ", row[2])
+   print ("YEAR = ", row[3])
+   print ("DIRECTOR = ", row[4],"\n")
+
+print ("Operation done successfully");
+conn.close()
+
+#DELETE Operation
+conn.execute("DELETE from MOVIE where MOVIE = 'black friday';")
+conn.commit()
+print( "Total number of rows updated :", conn.total_changes)
+
+cursor = conn.execute("SELECT MOVIE, ACTOR, ACTRESS, YEAR, DIRECTOR from MOVIE")
+for row in cursor:
+   print ("MOVIE = ", row[0])
+   print ("ACTOR = ", row[1])
+   print ("ACTRESS = ", row[2])
+   print ("YEAR = ", row[3])
+   print ("DIRECTOR = ", row[4],"\n")
+
+print ("Operation done successfully");
+conn.close()
